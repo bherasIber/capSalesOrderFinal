@@ -10,9 +10,18 @@
     "express": "^4"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.120.1",
+    "@sapui5/ts-types": "^1.92.2",
+    "eslint": "^7.32.0"
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "watch-salesorders": "cds watch --open salesorders/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/salesorders",
+    "app/salesorders"
+  ]
 }
