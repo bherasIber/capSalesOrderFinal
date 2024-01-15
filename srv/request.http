@@ -1,0 +1,44 @@
+######### GET ORDERS
+
+GET http://localhost:4004/read-orders/GetOrders(ID='2a33c260-033d-4b1c-ac0b-0bfe41732149',email='jmckeag0@house.gov')
+
+######### GET ORDERS
+
+GET http://localhost:4004/read-orders/GetItems
+
+######### GET ORDERS
+GET http://localhost:4004/read-orders/GetOrders
+
+######### CREATE ORDERS
+
+POST http://localhost:4004/create-orders/CreateOrders HTTP/1.1
+//header name: header value
+Content-Type: application/json
+
+{
+   // "ID"   : "2a33c260-033d-4b1c-ac0-0bfe41632149",
+    "email": "dhdezleon@gmail.com",
+    "firstname": "Daniel",
+    "lastname": "Hernandez",
+    "country_code": "ES"
+  
+}
+
+######### CREATE ITEMS
+POST http://localhost:4004/create-orders/CreateItem  HTTP/1.1
+Content-Type: application/json
+
+{
+    // "ID"  : "2a33c260-033d-4b1c-ac0b-0bfe41732149",
+     "name": "Pepe",
+     "description": "Pollo a la Pepetitoria ",
+     "price": "10",
+     "height": "15",
+     "weidth": "12",
+     "quantity": "10",
+     "unitofmesure": "gr",
+     "Header_ID": "2a33c260-033d-4b1c-ac0b-0bfe41732149",
+     "Header_email": "jmckeag0@house.gov"
+                    
+
+}

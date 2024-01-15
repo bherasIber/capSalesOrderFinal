@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="SalesOrders2" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Header" EntityType="SalesOrders2.Header">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="tocountry" Target="Countries_d"/>
+                    <NavigationPropertyBinding Path="toorderstatus" Target="orderstatus"/>
+                    <NavigationPropertyBinding Path="item" Target="Items"/>
+                </EntitySet>
+                <EntitySet Name="Items" EntityType="SalesOrders2.Items">
+                    <NavigationPropertyBinding Path="Header" Target="Header"/>
+                </EntitySet>
+                <EntitySet Name="unitofmesure" EntityType="SalesOrders2.unitofmesure"/>
+                <EntitySet Name="orderstatus" EntityType="SalesOrders2.orderstatus"/>
+                <EntitySet Name="Countries_d" EntityType="SalesOrders2.Countries_d"/>
+                <EntitySet Name="customer" EntityType="SalesOrders2.customer"/>
+                <EntitySet Name="Countries" EntityType="SalesOrders2.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries_texts" EntityType="SalesOrders2.Countries_texts"/>
+            </EntityContainer>
+            <EntityType Name="Header">
+                <Key>
+                    <PropertyRef Name="email"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="email" Type="Edm.String" MaxLength="40" Nullable="false"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="firstname" Type="Edm.String" MaxLength="40"/>
+                <Property Name="lastname" Type="Edm.String" MaxLength="40"/>
+                <NavigationProperty Name="country" Type="SalesOrders2.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <NavigationProperty Name="tocountry" Type="SalesOrders2.Countries_d"/>
+                <Property Name="createon" Type="Edm.Date"/>
+                <Property Name="deliverydate" Type="Edm.Date"/>
+                <Property Name="orderstatus" Type="Edm.Int32"/>
+                <NavigationProperty Name="toorderstatus" Type="SalesOrders2.orderstatus"/>
+                <NavigationProperty Name="item" Type="Collection(SalesOrders2.Items)" Partner="Header">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="imagenurl" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Items">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="Name" Type="Edm.String" MaxLength="40"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="40"/>
+                <Property Name="description" Type="Edm.String" MaxLength="40"/>
+                <Property Name="releasedate" Type="Edm.DateTimeOffset"/>
+                <Property Name="discontinuedate" Type="Edm.DateTimeOffset"/>
+                <Property Name="price" Type="Edm.Decimal" Scale="2" Precision="12"/>
+                <Property Name="height" Type="Edm.Decimal" Scale="2" Precision="12"/>
+                <Property Name="weidth" Type="Edm.Decimal" Scale="3" Precision="15"/>
+                <Property Name="depth" Type="Edm.Decimal" Scale="2" Precision="12"/>
+                <Property Name="quantity" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="unitofmesure" Type="Edm.String" MaxLength="2"/>
+                <Property Name="tounitofmesure" Type="Edm.String" MaxLength="2"/>
+                <NavigationProperty Name="Header" Type="SalesOrders2.Header" Partner="item">
+                    <ReferentialConstraint Property="Header_ID" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="Header_email" ReferencedProperty="email"/>
+                </NavigationProperty>
+                <Property Name="Header_ID" Type="Edm.Guid"/>
+                <Property Name="Header_email" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="unitofmesure">
+                <Property Name="ID_Mesure" Type="Edm.String" MaxLength="2"/>
+                <Property Name="name" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="orderstatus">
+                <Property Name="id" Type="Edm.Int32"/>
+                <Property Name="status" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="Countries_d">
+                <Property Name="code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="name" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="customer">
+                <Key>
+                    <PropertyRef Name="name"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="40" Nullable="false"/>
+                <Property Name="Adress" Type="Edm.String" MaxLength="25"/>
+                <Property Name="Phone" Type="Edm.String" MaxLength="25"/>
+                <Property Name="email" Type="Edm.String" MaxLength="25"/>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(SalesOrders2.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="SalesOrders2.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="SalesOrders2.Header/email">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="SalesOrders2.Header/country">
+                <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                    </Annotations>
+                    <Annotations Target="SalesOrders2.Header/country_code">
+                        <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                            <Annotation Term="Common.ValueList">
+                                <Record Type="Common.ValueListType">
+                                    <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                        <PropertyValue Property="CollectionPath" String="Countries"/>
+                                        <PropertyValue Property="Parameters">
+                                            <Collection>
+                                                <Record Type="Common.ValueListParameterInOut">
+                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                </Record>
+                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+                                </Annotation>
+                                <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.Header/createon">
+                                    <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.Items/releasedate">
+                                    <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.Items/tounitofmesure">
+                                    <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.EntityContainer/unitofmesure">
+                                    <Annotation Term="Capabilities.DeleteRestrictions">
+                                        <Record Type="Capabilities.DeleteRestrictionsType">
+                                            <PropertyValue Property="Deletable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.InsertRestrictions">
+                                        <Record Type="Capabilities.InsertRestrictionsType">
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.UpdateRestrictions">
+                                        <Record Type="Capabilities.UpdateRestrictionsType">
+                                            <PropertyValue Property="Updatable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.EntityContainer/orderstatus">
+                                    <Annotation Term="Capabilities.DeleteRestrictions">
+                                        <Record Type="Capabilities.DeleteRestrictionsType">
+                                            <PropertyValue Property="Deletable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.InsertRestrictions">
+                                        <Record Type="Capabilities.InsertRestrictionsType">
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.UpdateRestrictions">
+                                        <Record Type="Capabilities.UpdateRestrictionsType">
+                                            <PropertyValue Property="Updatable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.EntityContainer/Countries_d">
+                                    <Annotation Term="Capabilities.DeleteRestrictions">
+                                        <Record Type="Capabilities.DeleteRestrictionsType">
+                                            <PropertyValue Property="Deletable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.InsertRestrictions">
+                                        <Record Type="Capabilities.InsertRestrictionsType">
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                    <Annotation Term="Capabilities.UpdateRestrictions">
+                                        <Record Type="Capabilities.UpdateRestrictionsType">
+                                            <PropertyValue Property="Updatable" Bool="false"/>
+                                        </Record>
+                                    </Annotation>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.Countries">
+                                    <Annotation Term="UI.Identification">
+                                        <Collection>
+                                            <Record Type="UI.DataField">
+                                                <PropertyValue Property="Value" Path="name"/>
+                                            </Record>
+                                        </Collection>
+                                    </Annotation>
+                                </Annotations>
+                                <Annotations Target="SalesOrders2.Countries/name">
+                                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                    </Annotations>
+                                    <Annotations Target="SalesOrders2.Countries/descr">
+                                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                        </Annotations>
+                                        <Annotations Target="SalesOrders2.Countries/code">
+                                            <Annotation Term="Common.Text" Path="name"/>
+                                            <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                            </Annotations>
+                                            <Annotations Target="SalesOrders2.Countries_texts/name">
+                                                <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                </Annotations>
+                                                <Annotations Target="SalesOrders2.Countries_texts/descr">
+                                                    <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="SalesOrders2.Countries_texts/code">
+                                                        <Annotation Term="Common.Text" Path="name"/>
+                                                        <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                        </Annotations>
+                                                    </Schema>
+                                                </edmx:DataServices>
+                                            </edmx:Edmx>
