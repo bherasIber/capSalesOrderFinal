@@ -1,30 +1,30 @@
-using {com.dhl as dhl} from '../db/schema';
+using {com.bhp as bhp} from '../db/schema';
 
 service SalesOrders {
-    entity HeaderSales  as select from dhl.HeaderSales;
-    entity SalesItems   as select from dhl.SalesItems;
-    entity UnitOfMesure as select from dhl.UnitOfMesure;
+    entity HeaderSales  as select from bhp.HeaderSales;
+    entity SalesItems   as select from bhp.SalesItems;
+    entity UnitOfMesure as select from bhp.UnitOfMesure;
     
 }
 
 Service ReadOrders{
 
-    entity GetOrders as projection on dhl.HeaderSales;
-    entity GetItems as projection on dhl.SalesItems;
+    entity GetOrders as projection on bhp.HeaderSales;
+    entity GetItems as projection on bhp.SalesItems;
     
     
 }
 
 
 Service CreateOrders{
-    entity CreateOrders as projection on dhl.HeaderSales;
-    entity CreateItem as projection on dhl.SalesItems;
+    entity CreateOrders as projection on bhp.HeaderSales;
+    entity CreateItem as projection on bhp.SalesItems;
 }
 
 
 define service SalesOrders2{
 
-    entity Header as select from dhl.HeaderSales {
+    entity Header as select from bhp.HeaderSales {
        /* //ID as Order_Number @mandatory,
         email @mandatory,
         firstname,
@@ -47,7 +47,7 @@ define service SalesOrders2{
 
     };
 
-    entity Items as select from dhl.SalesItems {
+    entity Items as select from bhp.SalesItems {
        // ID as Item_Number,
        // email,
        // posicion,
@@ -68,22 +68,22 @@ define service SalesOrders2{
         
     };
     @readonly
-    entity unitofmesure as select from dhl.UnitOfMesure{
+    entity unitofmesure as select from bhp.UnitOfMesure{
         ID_Mesure,
         name        
     };
       @readonly
-      entity orderstatus as select from dhl.orderstatus{
+      entity orderstatus as select from bhp.orderstatus{
           id,
           status
       };
 
       @readonly
-      entity Countries_d as select from dhl.V_Country{
+      entity Countries_d as select from bhp.V_Country{
           code,
           name
        };
-   entity customer as select from dhl.Customer{
+   entity customer as select from bhp.Customer{
      name,
      Adress,
      Phone,

@@ -1,12 +1,12 @@
 cds = require("@sap/cds");
-const { HeaderSales } = cds.entities("com.dhl");
-const { SalesItems } = cds.entities("com.dhl");
+const { HeaderSales } = cds.entities("com.bhp");
+const { SalesItems } = cds.entities("com.bhp");
 module.exports = (srv) => {
     //************READ******/
 
     srv.on("READ", "GetOrders", async (req) => {
         if (req.data.ID !== undefined && req.data.email !== undefined) {
-            return await SELECT.from`com.dhl.HeaderSales`
+            return await SELECT.from`com.bhp.HeaderSales`
                 .where`email = ${req.data.email}`;
         }
         return await SELECT.from(HeaderSales);
@@ -15,7 +15,7 @@ module.exports = (srv) => {
 
     srv.on("READ", "GetItems", async (req) => {
         //  if (req.data.ID !== undefined) {
-        // return await SELECT.from`com.dhl.SalesItems`;
+        // return await SELECT.from`com.bhp.SalesItems`;
         return await SELECT.from(SalesItems);
         // const.where`ID = ${req.data.ID}`;
         //       }
@@ -99,7 +99,7 @@ module.exports = (srv) => {
         let item = await cds
             .transaction(req)   // Generamos una nueva funcion y con el run la llamamos 
             .run(
-                INSERT.into`com.dhl.SalesItems`.entries({
+                INSERT.into`com.bhp.SalesItems`.entries({
                     name: req.data.name,
                     description: req.data.description,
                     releasedate: req.data.releasedate,

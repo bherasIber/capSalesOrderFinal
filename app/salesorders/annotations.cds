@@ -1,4 +1,4 @@
-using SalesOrders2 as service from 'Orders../../../home/user/projects/Orders/srv/SalesOrders';
+using SalesOrders2 as service from '../../srv/SalesOrders';
 
 annotate service.Header with @(
     UI.LineItem : [

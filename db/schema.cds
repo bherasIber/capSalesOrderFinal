@@ -1,4 +1,4 @@
-namespace com.dhl;
+namespace com.bhp;
 
 
 using {
@@ -26,7 +26,7 @@ define entity HeaderSales : cuid {
         //country      : String(30);
         createon      : Date default $now;
         deliverydate  : Date;
-        orderstatus   : Integer;
+        orderstatus   : String(20);
         toorderstatus : Association to orderstatus
                             on toorderstatus.id = orderstatus;
         item          : Composition of many SalesItems

@@ -10,7 +10,7 @@
 |**Service URL**<br>http://localhost:4004/sales-orders2/
 |**Module Name**<br>salesorders|
 |**Application Title**<br>Sales Orders Report|
-|**Namespace**<br>dhl|
+|**Namespace**<br>bhp|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.100.2|
 |**Enable Code Assist Libraries**<br>True|

@@ -1,7 +1,7 @@
 {
     "_version": "1.12.0",
     "sap.app": {
-        "id": "dhl.salesorders",
+        "id": "bhp.salesorders",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -36,7 +36,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "dhl-salesorders-inbound": {
+                "bhp-salesorders-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
@@ -85,7 +85,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "dhl.salesorders.i18n.i18n"
+                    "bundleName": "bhp.salesorders.i18n.i18n"
                 }
             },
             "": {

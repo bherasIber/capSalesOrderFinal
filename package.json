@@ -6,15 +6,26 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^5",
-    "express": "^4"
+    "@graphql-tools/schema": "^10.0.2",
+    "@sap-cloud-sdk/resilience": "^3.9.0",
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/hdi-deploy": "^4.9.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0"
   },
   "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
-    "@sap/ux-specification": "^1.100.0",
+    "@sap/ux-specification": "^1.120.1",
     "@sapui5/ts-types": "^1.92.2",
-    "eslint": "^7.32.0",
-    "sqlite3": "^5.0.2"
+    "cds-swagger-ui-express": "^0.7.0",
+    "eslint": "^7.32.0"
   },
   "scripts": {
     "start": "cds watch"
@@ -42,6 +53,32 @@
     "rules": {
       "no-console": "off",
       "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "features": {
+      "graphql": true
+    },
+    "requires": {
+      "db": {
+        "kind": "sql"
+      },
+      "sapbackend": {
+        "kind": "odata-v2",
+        "model": "srv/external/sapbackend",
+        "[development]": {
+          "credentials": {
+            "requestTimeout": 30000,
+            "url": "http://erp13.sap4practice.com:9037/sap/opu/odata/sap/YSAPUI5_SRV_01",
+            "authentication": "NoAuthentication"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "NPL_Backend"
+          }
+        }
+      }
     }
   },
   "sapux": [
